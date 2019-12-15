@@ -1,9 +1,8 @@
-package net.sender.newsleetersever.Entity.User;
+package net.sender.newsleetersever.enterypoints.http.entities.user;
 
 
 import javax.persistence.Entity;
 
-@Entity
 public class UserDeleteEntity {
 
     private String answer;

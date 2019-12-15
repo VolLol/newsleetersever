@@ -1,10 +1,8 @@
-package net.sender.newsleetersever.Entity.Newsletter;
+package net.sender.newsleetersever.enterypoints.http.entities.newsletter;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.Entity;
-
-@Entity
 public class NewsLetterCreateEntity {
 
     @JsonProperty("newsLetterName")

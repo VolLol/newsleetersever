@@ -1,13 +1,13 @@
-package net.sender.newsleetersever.Entity.User;
+package net.sender.newsleetersever.enterypoints.http.entities.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.Entity;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
-@Entity
-public class UserCreateEntity {
+public class UserCreateResponseHttpEntity {
+
+    @JsonProperty("id")
+    Long userId;
 
     @JsonProperty("username")
     private String username;
@@ -18,18 +18,22 @@ public class UserCreateEntity {
     @JsonProperty("address")
     private String address;
 
-    @JsonProperty("password")
-    @NotBlank(message = "TVAR POSTAV PAROL!!!!!")
-    @Size(min = 3, max = 40, message = "Минимальная длинна пароля - 3 символа, максимальная длинна пароля - 40 символов")
-    private String password;
+    public UserCreateResponseHttpEntity() {
+    }
 
-    UserCreateEntity() { }
-
-    UserCreateEntity(String username, String companyName, String address, String password) {
+    public UserCreateResponseHttpEntity(Long userId, String username, String companyName, String address) {
+        this.userId = userId;
         this.username = username;
         this.companyName = companyName;
         this.address = address;
-        this.password = password;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {
@@ -56,11 +60,4 @@ public class UserCreateEntity {
         this.address = address;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

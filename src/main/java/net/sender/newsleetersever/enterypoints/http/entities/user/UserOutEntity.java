@@ -1,10 +1,9 @@
-package net.sender.newsleetersever.Entity.User;
+package net.sender.newsleetersever.enterypoints.http.entities.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.Entity;
 
-@Entity
 public class UserOutEntity {
 
     private Long userId;

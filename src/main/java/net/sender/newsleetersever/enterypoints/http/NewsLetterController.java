@@ -1,8 +1,8 @@
-package net.sender.newsleetersever.Controller;
+package net.sender.newsleetersever.enterypoints.http;
 
-import net.sender.newsleetersever.Entity.Newsletter.NewsLetterCreateEntity;
-import net.sender.newsleetersever.Entity.Newsletter.NewsLetterDeleteEntity;
-import net.sender.newsleetersever.Entity.Newsletter.NewsLetterOutEntity;
+import net.sender.newsleetersever.enterypoints.http.entities.newsletter.NewsLetterCreateEntity;
+import net.sender.newsleetersever.enterypoints.http.entities.newsletter.NewsLetterDeleteEntity;
+import net.sender.newsleetersever.enterypoints.http.entities.newsletter.NewsLetterOutEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

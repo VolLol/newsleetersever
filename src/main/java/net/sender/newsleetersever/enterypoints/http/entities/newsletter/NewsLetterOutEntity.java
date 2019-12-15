@@ -1,9 +1,8 @@
-package net.sender.newsleetersever.Entity.Newsletter;
+package net.sender.newsleetersever.enterypoints.http.entities.newsletter;
 
 
 import javax.persistence.Entity;
 
-@Entity
 public class NewsLetterOutEntity {
 
 
