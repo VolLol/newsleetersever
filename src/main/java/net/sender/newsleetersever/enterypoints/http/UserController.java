@@ -1,12 +1,12 @@
 package net.sender.newsleetersever.enterypoints.http;
 
-import net.sender.newsleetersever.enterypoints.http.entities.user.UserCreateRequestHttpEntity;
-import net.sender.newsleetersever.enterypoints.http.entities.user.UserCreateResponseHttpEntity;
-import net.sender.newsleetersever.enterypoints.http.entities.user.UserDeleteEntity;
-import net.sender.newsleetersever.enterypoints.http.entities.user.UserOutEntity;
+import net.sender.newsleetersever.enterypoints.http.entities.user.*;
+import net.sender.newsleetersever.enterypoints.http.exceptions.BadRequestHttpException;
 import net.sender.newsleetersever.usecases.user.UserCreateUseCase;
-import net.sender.newsleetersever.usecases.user.entities.UserCreateResultUseCaseEntity;
-import net.sender.newsleetersever.usecases.user.entities.UserCreateUseCaseEntity;
+import net.sender.newsleetersever.usecases.user.UserDeleteUseCase;
+import net.sender.newsleetersever.usecases.user.UserUpdateUseCase;
+import net.sender.newsleetersever.usecases.user.entities.*;
+import net.sender.newsleetersever.usecases.user.exceptions.UseCaseLogicException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +17,10 @@ import java.util.ArrayList;
 public class UserController {
     @Autowired
     UserCreateUseCase userCreateUseCase;
+    @Autowired
+    UserUpdateUseCase userUpdateUseCase;
+    @Autowired
+    UserDeleteUseCase userDeleteUseCase;
 
     ArrayList<UserOutEntity> userList = new ArrayList<UserOutEntity>();
 
@@ -29,10 +33,14 @@ public class UserController {
     }
 
 
-    @DeleteMapping("/api/v1/user/delete/{userId}")
-    public UserDeleteEntity deleteEntity(@PathVariable long userId) {
-        if (userId == 1L) return new UserDeleteEntity("OK");
-        else return new UserDeleteEntity("UNKNOWN_USER");
+    @DeleteMapping("/api/v1/user/{userId}")
+    public UserDeleteResponseHttpEntity deleteEntity(@PathVariable Long userId) {
+        UserDeleteInUseCaseEntity useCaseEntity = new UserDeleteInUseCaseEntity();
+        useCaseEntity.setUserId(userId);
+        UserDeleteOutUseCaseEntity outUseCaseEntity = userDeleteUseCase.execute(useCaseEntity);
+        UserDeleteResponseHttpEntity responseHttpEntity = new UserDeleteResponseHttpEntity();
+        responseHttpEntity.setAnswer(outUseCaseEntity.getProcessingResult());
+        return responseHttpEntity;
     }
 
 
@@ -59,10 +67,29 @@ public class UserController {
     }
 
 
-    @PutMapping("/api/v1/user/{newCompanyName}")
-    public UserOutEntity updateUserOutEntity(@PathVariable String newCompanyName, UserOutEntity userOutEntity) {
-        userOutEntity.setCompanyName(newCompanyName);
-        return userOutEntity;
-    }
+    @PutMapping("/api/v1/user/{userId}")
+    public UserUpdateResponseHttpEntity updateUser(@Valid @RequestBody UserUpdateRequestHttpEntity requestEntity,
+                                                   @PathVariable Long userId) {
+        UserUpdateInUseCaseEntity updateInUseCaseEntity = new UserUpdateInUseCaseEntity();
+        updateInUseCaseEntity.setUserId(userId);
+        updateInUseCaseEntity.setCompanyName(requestEntity.getCompanyName());
+        updateInUseCaseEntity.setAddress(requestEntity.getAddress());
+        updateInUseCaseEntity.setEmail(requestEntity.getEmail());
+        try {
 
+
+            UserUpdateOutUseCaseEntity resultUseCaseEntity = userUpdateUseCase.execute(updateInUseCaseEntity);
+
+
+            UserUpdateResponseHttpEntity responseHttpEntity = new UserUpdateResponseHttpEntity();
+            responseHttpEntity.setUserId(resultUseCaseEntity.getId());
+            responseHttpEntity.setAddress(resultUseCaseEntity.getAddress());
+            responseHttpEntity.setCompanyName(resultUseCaseEntity.getCompanyName());
+            responseHttpEntity.setEmail(resultUseCaseEntity.getEmail());
+            responseHttpEntity.setUsername(resultUseCaseEntity.getUsername());
+            return responseHttpEntity;
+        } catch (UseCaseLogicException e) {
+            throw new BadRequestHttpException(e.getMessage(),e);
+        }
+    }
 }

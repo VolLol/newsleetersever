@@ -2,10 +2,9 @@ package net.sender.newsleetersever.enterypoints.http.entities.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class UserCreateResponseHttpEntity {
-
+public class UserUpdateResponseHttpEntity {
     @JsonProperty("id")
-    Long userId;
+    private Long userId;
 
     @JsonProperty("username")
     private String username;
@@ -16,14 +15,26 @@ public class UserCreateResponseHttpEntity {
     @JsonProperty("address")
     private String address;
 
-    public UserCreateResponseHttpEntity() {
+    @JsonProperty("email")
+    private String email;
+
+    public UserUpdateResponseHttpEntity() {
     }
 
-    public UserCreateResponseHttpEntity(Long userId, String username, String companyName, String address) {
+    public UserUpdateResponseHttpEntity(Long userId, String username, String companyName, String address, String email) {
         this.userId = userId;
         this.username = username;
         this.companyName = companyName;
         this.address = address;
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Long getUserId() {

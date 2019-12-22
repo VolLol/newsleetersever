@@ -3,13 +3,13 @@ package net.sender.newsleetersever.enterypoints.http.entities.user;
 
 import javax.persistence.Entity;
 
-public class UserDeleteEntity {
+public class UserDeleteResponseHttpEntity {
 
     private String answer;
 
-    public UserDeleteEntity(){}
+    public UserDeleteResponseHttpEntity(){}
 
-    public UserDeleteEntity(String answer) {
+    public UserDeleteResponseHttpEntity(String answer) {
         this.answer = answer;
     }
 

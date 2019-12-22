@@ -2,13 +2,10 @@ package net.sender.newsleetersever.enterypoints.http.entities.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class UserCreateResponseHttpEntity {
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
-    @JsonProperty("id")
-    Long userId;
-
-    @JsonProperty("username")
-    private String username;
+public class UserUpdateRequestHttpEntity {
 
     @JsonProperty("companyName")
     private String companyName;
@@ -16,30 +13,25 @@ public class UserCreateResponseHttpEntity {
     @JsonProperty("address")
     private String address;
 
-    public UserCreateResponseHttpEntity() {
+    @JsonProperty("email")
+    @NotBlank
+    private String email;
+
+    public UserUpdateRequestHttpEntity() {
     }
 
-    public UserCreateResponseHttpEntity(Long userId, String username, String companyName, String address) {
-        this.userId = userId;
-        this.username = username;
+    public UserUpdateRequestHttpEntity(String companyName, String address, String email) {
         this.companyName = companyName;
         this.address = address;
+        this.email=email;
     }
 
-    public Long getUserId() {
-        return userId;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getCompanyName() {
@@ -57,5 +49,4 @@ public class UserCreateResponseHttpEntity {
     public void setAddress(String address) {
         this.address = address;
     }
-
 }

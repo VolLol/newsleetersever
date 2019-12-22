@@ -2,9 +2,6 @@ package net.sender.newsleetersever.enterypoints.http.entities.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Entity;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 public class UserCreateRequestHttpEntity {
 
@@ -18,8 +15,6 @@ public class UserCreateRequestHttpEntity {
     private String address;
 
     @JsonProperty("password")
-    @NotBlank(message = "TVAR POSTAV PAROL!!!!!")
-    @Size(min = 3, max = 40, message = "Минимальная длинна пароля - 3 символа, максимальная длинна пароля - 40 символов")
     private String password;
 
     UserCreateRequestHttpEntity() { }

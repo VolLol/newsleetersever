@@ -33,12 +33,21 @@ Accept: application/json
 
 ###
 
-DELETE http://localhost:8000/api/v1/user/delete/2
+DELETE http://localhost:8000/api/v1/user/6
 Accept: application/json
 
 ###
 
-PUT http://localhost:8000/api/v1/user/delete/1
+PUT http://localhost:8000/api/v1/user/7
 Accept: application/json
+Content-Type: application/json
+
+{
+  "username": "kek",
+  "companyName": "kek-company",
+  "address": "kek-town",
+  "password": "174dorgj;eorij379745497",
+  "email": "nurs@dfjiv.com"
+}
 
 ###
