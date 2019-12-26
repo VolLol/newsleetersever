@@ -4,6 +4,7 @@ import net.sender.newsleetersever.enterypoints.http.entities.user.*;
 import net.sender.newsleetersever.enterypoints.http.exceptions.BadRequestHttpException;
 import net.sender.newsleetersever.usecases.user.UserCreateUseCase;
 import net.sender.newsleetersever.usecases.user.UserDeleteUseCase;
+import net.sender.newsleetersever.usecases.user.UserSearchUseCase;
 import net.sender.newsleetersever.usecases.user.UserUpdateUseCase;
 import net.sender.newsleetersever.usecases.user.entities.*;
 import net.sender.newsleetersever.usecases.user.exceptions.UseCaseLogicException;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class UserController {
@@ -21,15 +23,23 @@ public class UserController {
     UserUpdateUseCase userUpdateUseCase;
     @Autowired
     UserDeleteUseCase userDeleteUseCase;
-
-    ArrayList<UserOutEntity> userList = new ArrayList<UserOutEntity>();
+    @Autowired
+    UserSearchUseCase userSearchUseCase;
 
     @GetMapping("/api/v1/users")
-    public ArrayList<UserOutEntity> getUserList() {
-        userList.add(new UserOutEntity(1L, "user1", "company1", "addr1"));
-        userList.add(new UserOutEntity(2L, "user4", "company4", "addr4"));
-        userList.add(new UserOutEntity(3L, "user4", "company4", "addr4"));
-        return userList;
+    public List<UserSearchResponseHttpEntity> getAllUsers() {
+        List<UserSearchResponseHttpEntity> listOut = new ArrayList<UserSearchResponseHttpEntity>();
+        List<UserSearchOutUseCaseEntity> userSearchOutUseCaseEntityList = userSearchUseCase.execute();
+
+        for(int i = 0; i<userSearchOutUseCaseEntityList.size();i++){
+            UserSearchOutUseCaseEntity tmpOut = userSearchOutUseCaseEntityList.get(i);
+            UserSearchResponseHttpEntity tmpIn = new UserSearchResponseHttpEntity();
+            tmpIn.setId(tmpOut.getUserId());
+            tmpIn.setUsername(tmpOut.getUsername());
+            listOut.add(tmpIn);
+        }
+
+        return listOut;
     }
 
 
@@ -43,27 +53,25 @@ public class UserController {
         return responseHttpEntity;
     }
 
-
-    @GetMapping("/api/v1/user/{userId}")
-    public UserOutEntity getUserById(@PathVariable Long userId) {
-        return new UserOutEntity(userId, "user" + userId.toString(), "company1", "addr1");
-    }
-
-
     @PostMapping("/api/v1/user")
     public UserCreateResponseHttpEntity createUser(@Valid @RequestBody UserCreateRequestHttpEntity userCreateEntity) {
-        UserCreateResultUseCaseEntity result = userCreateUseCase.execute(new UserCreateUseCaseEntity(
-                userCreateEntity.getUsername(),
-                userCreateEntity.getCompanyName(),
-                userCreateEntity.getAddress(),
-                userCreateEntity.getPassword()
-        ));
+        UserCreateUseCaseEntity userCreateUseCaseEntity = new UserCreateUseCaseEntity();
 
-        return new UserCreateResponseHttpEntity(
-                result.getUserId(),
-                result.getUsername(),
-                result.getCompanyName(),
-                result.getAddress());
+        userCreateUseCaseEntity.setUsername(userCreateEntity.getUsername());
+        userCreateUseCaseEntity.setAddress(userCreateEntity.getAddress());
+        userCreateUseCaseEntity.setCleanPassword(userCreateEntity.getPassword());
+        userCreateUseCaseEntity.setCompanyName(userCreateEntity.getCompanyName());
+        userCreateUseCaseEntity.setEmail(userCreateEntity.getEmail());
+
+        UserCreateResultUseCaseEntity userCreateResultUseCaseEntity = userCreateUseCase.execute(userCreateUseCaseEntity);
+
+        UserCreateResponseHttpEntity result = new UserCreateResponseHttpEntity();
+        result.setUserId(userCreateResultUseCaseEntity.getUserId());
+        result.setUsername(userCreateResultUseCaseEntity.getUsername());
+        result.setCompanyName(userCreateResultUseCaseEntity.getCompanyName());
+        result.setAddress(userCreateResultUseCaseEntity.getAddress());
+        result.setEmail(userCreateResultUseCaseEntity.getEmail());
+        return result;
     }
 
 
@@ -89,7 +97,7 @@ public class UserController {
             responseHttpEntity.setUsername(resultUseCaseEntity.getUsername());
             return responseHttpEntity;
         } catch (UseCaseLogicException e) {
-            throw new BadRequestHttpException(e.getMessage(),e);
+            throw new BadRequestHttpException(e.getMessage(), e);
         }
     }
 }

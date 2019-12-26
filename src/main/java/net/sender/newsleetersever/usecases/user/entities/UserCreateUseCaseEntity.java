@@ -7,15 +7,14 @@ public class UserCreateUseCaseEntity {
     private String companyName;
     private String address;
     private String cleanPassword; //незашифрованный пароль
+    private String email;
 
-    public UserCreateUseCaseEntity() {
+    public String getEmail() {
+        return email;
     }
 
-    public UserCreateUseCaseEntity(String username, String companyName, String address, String cleanPassword) {
-        this.username = username;
-        this.companyName = companyName;
-        this.address = address;
-        this.cleanPassword = cleanPassword;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getUsername() {

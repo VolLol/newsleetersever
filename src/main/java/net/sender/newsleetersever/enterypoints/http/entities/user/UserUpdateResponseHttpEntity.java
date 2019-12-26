@@ -18,17 +18,6 @@ public class UserUpdateResponseHttpEntity {
     @JsonProperty("email")
     private String email;
 
-    public UserUpdateResponseHttpEntity() {
-    }
-
-    public UserUpdateResponseHttpEntity(Long userId, String username, String companyName, String address, String email) {
-        this.userId = userId;
-        this.username = username;
-        this.companyName = companyName;
-        this.address = address;
-        this.email = email;
-    }
-
     public String getEmail() {
         return email;
     }

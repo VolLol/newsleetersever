@@ -6,48 +6,47 @@
 # * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
 # * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
 
+//return all users
 GET http://localhost:8000/api/v1/users
 Accept: application/json
 
 ###
 
+//return user with {id}
 GET http://localhost:8000/api/v1/user/10000
 Accept: application/json
 
 ###
-
+//create new user
 POST http://localhost:8000/api/v1/user
 Content-Type: application/json
 
 {
-  "username": "lol",
-  "companyName": "lol-company",
-  "address": "lol-town",
-  "password": "1777"
+  "username": "CCCC",
+  "companyName": "CCCCC-company",
+  "address": "CCCCCC-town",
+  "password": "1777",
+  "email": "CCCCCCCCCCC"
 }
 
 ###
-
-GET http://localhost:8000/api/v1/delete/4
+//delete user with {id}
+DELETE http://localhost:8000/api/v1/user/2
 Accept: application/json
 
 ###
 
-DELETE http://localhost:8000/api/v1/user/6
-Accept: application/json
-
-###
-
-PUT http://localhost:8000/api/v1/user/7
+//Update user with id
+PUT http://localhost:8000/api/v1/user/3
 Accept: application/json
 Content-Type: application/json
 
 {
-  "username": "kek",
-  "companyName": "kek-company",
-  "address": "kek-town",
-  "password": "174dorgj;eorij379745497",
-  "email": "nurs@dfjiv.com"
+  "username": "lkdfnvslk.ejlanv;/sel",
+  "companyName": "ccc-company",
+  "address": "ccc-town",
+  "password": "paswordCCC",
+  "email": "nurs@CCC.com"
 }
 
 ###

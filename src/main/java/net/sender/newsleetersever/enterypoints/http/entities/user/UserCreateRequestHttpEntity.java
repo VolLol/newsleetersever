@@ -17,13 +17,15 @@ public class UserCreateRequestHttpEntity {
     @JsonProperty("password")
     private String password;
 
-    UserCreateRequestHttpEntity() { }
+    @JsonProperty("email")
+    private String email;
 
-    UserCreateRequestHttpEntity(String username, String companyName, String address, String password) {
-        this.username = username;
-        this.companyName = companyName;
-        this.address = address;
-        this.password = password;
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getUsername() {

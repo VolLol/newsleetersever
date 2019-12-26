@@ -17,15 +17,6 @@ public class UserUpdateRequestHttpEntity {
     @NotBlank
     private String email;
 
-    public UserUpdateRequestHttpEntity() {
-    }
-
-    public UserUpdateRequestHttpEntity(String companyName, String address, String email) {
-        this.companyName = companyName;
-        this.address = address;
-        this.email=email;
-    }
-
     public String getEmail() {
         return email;
     }

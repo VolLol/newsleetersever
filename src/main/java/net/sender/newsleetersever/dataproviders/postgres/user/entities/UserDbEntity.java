@@ -23,14 +23,6 @@ public class UserDbEntity {
     public UserDbEntity() {
     }
 
-    public UserDbEntity(String username, String companyName, String address, String email, String cryptPassword) {
-        this.username = username;
-        this.companyName = companyName;
-        this.address = address;
-        this.email = email;
-        this.cryptPassword = cryptPassword;
-    }
-
     public Long getUserId() {
         return userId;
     }

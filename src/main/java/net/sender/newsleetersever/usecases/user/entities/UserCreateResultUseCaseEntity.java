@@ -6,15 +6,14 @@ public class UserCreateResultUseCaseEntity {
     private String username;
     private String companyName;
     private String address;
+    private String email;
 
-    public UserCreateResultUseCaseEntity() {
+    public String getEmail() {
+        return email;
     }
 
-    public UserCreateResultUseCaseEntity(Long userId, String username, String companyName, String address) {
-        this.userId = userId;
-        this.username = username;
-        this.companyName = companyName;
-        this.address = address;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Long getUserId() {

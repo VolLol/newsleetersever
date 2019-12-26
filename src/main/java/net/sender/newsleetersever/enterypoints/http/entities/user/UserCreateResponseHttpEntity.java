@@ -16,14 +16,15 @@ public class UserCreateResponseHttpEntity {
     @JsonProperty("address")
     private String address;
 
-    public UserCreateResponseHttpEntity() {
+    @JsonProperty("email")
+    private String email;
+
+    public String getEmail() {
+        return email;
     }
 
-    public UserCreateResponseHttpEntity(Long userId, String username, String companyName, String address) {
-        this.userId = userId;
-        this.username = username;
-        this.companyName = companyName;
-        this.address = address;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Long getUserId() {

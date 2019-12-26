@@ -25,10 +25,16 @@ public class UserCreateUseCase {
         userDbEntity.setAddress(entityIn.getAddress());
         userDbEntity.setCompanyName(entityIn.getCompanyName());
         userDbEntity.setCryptPassword(new BCryptPasswordEncoder().encode(entityIn.getCleanPassword()));
+        userDbEntity.setEmail(entityIn.getEmail());
         userRepository.save(userDbEntity);
+        UserCreateResultUseCaseEntity result = new UserCreateResultUseCaseEntity();
+        result.setUserId(userDbEntity.getUserId());
+        result.setUsername(userDbEntity.getUsername());
+        result.setEmail(userDbEntity.getEmail());
+        result.setCompanyName(userDbEntity.getCompanyName());
+        result.setAddress(userDbEntity.getAddress());
 
-        return new UserCreateResultUseCaseEntity(userDbEntity.getUserId(),
-                userDbEntity.getUsername(), userDbEntity.getCompanyName(), userDbEntity.getAddress());
+        return result;
     }
 
 

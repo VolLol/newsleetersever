@@ -11,13 +11,6 @@ public class UserOutEntity {
     private String companyName;
     private String address;
 
-    public UserOutEntity() {}
-    public UserOutEntity(Long userId, String username, String companyName, String address) {
-        this.username = username;
-        this.companyName = companyName;
-        this.address = address;
-        this.userId = userId;
-    }
 
     public Long getUserId() {
         return userId;

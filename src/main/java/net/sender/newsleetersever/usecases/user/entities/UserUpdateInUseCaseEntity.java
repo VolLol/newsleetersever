@@ -6,9 +6,6 @@ public class UserUpdateInUseCaseEntity {
     private String address;
     private String email;
 
-    public UserUpdateInUseCaseEntity() {
-    }
-
     public Long getUserId() {
         return userId;
     }
