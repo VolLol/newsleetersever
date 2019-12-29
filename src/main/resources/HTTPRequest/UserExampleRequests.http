@@ -7,7 +7,7 @@
 # * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
 
 //return all users
-GET http://localhost:8000/api/v1/users
+GET http://localhost:8000/api/v1/users?page=1
 Accept: application/json
 
 ###
